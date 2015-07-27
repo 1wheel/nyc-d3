@@ -18,7 +18,7 @@
 
 
 ##Great, but...
-- 81 lines & 2284 characters of js
+- 80 lines & 2284 characters of js
 
 - Reuse conventions with copy/paste
 
@@ -282,24 +282,136 @@ legend = svg.dataAppend(color.domain(), "g.legend")
 ````
 
 
+##d3.conventions - margins
+Before
+
+````javascript
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", 
+      "translate(" + margin.left + "," + margin.top + ")")
+````
+
+After
+````javascript
+var c = d3.conventions({
+  margin: {top: 20, right: 20, bottom: 30, left: 40},
+  width:  900,
+  height: 450,
+})
+
+c.svg.dataAppend(data, "circle.dot")
+````
+
+
+##d3.conventions - scales
+Creates and sets the domain for x and y scales
+
+Before
+
+````javascript
+var x = d3.scale.linear()
+    .range([0, width])
+    .domain(d3.extent(data, ƒ('sepalWidth')))
+
+var y = d3.scale.linear()
+    .range([height, 0])
+    .domain(d3.extent(data, ƒ('sepalLength')))
+````
+
+After
+````javascript
+c.x.domain(d3.extent(data, ƒ('sepalWidth')))
+c.y.domain(d3.extent(data, ƒ('sepalLength')))
+````
+
+
+##d3.conventions - axis
+Creates and configures x and y axis
+
+Before
+
+````javascript
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+````
+
+After
+````javascript
+console.log(c.xAxis.orient())        //"bottom"
+````
+
+
+##d3.conventions - axis
+Draws x and y axis
+
+Before
+
+````javascript
+svg.append("g.x.axis")
+    .translate([0, height])
+    .call(xAxis)
+  .append("text.label")
+    .attr("x", width)
+````
+
+After
+````javascript
+c.drawAxis()
+
+c.svg.select('.x.axis')
+  .append("text.label")
+    .attr("x", c.width)
+````
+
+
+##Significantly shorter
+- Conventions can be used without copy/paste
+- 49 lines and 1309 characters of javascript
+- 31 lines just to draw the axis label and legend
+
+
+#Minimally viable (scatter) plot 
+````
+var c = d3.conventions()
+c.x.domain(d3.extent(data, ƒ('sepalWidth')))
+c.y.domain(d3.extent(data, ƒ('sepalLength')))
+
+c.drawAxis()
+
+c.svg.dataAppend(data, "circle.dot")
+    .attr("r", 3.5)
+    .attr("cx", ƒ('sepalWidth', c.x))
+    .attr("cy", ƒ('sepalLength', c.y))
+    .style("fill", ƒ('species', c.color))
+````
+
+
+##There's more!
+- d3.attachTooltip
+- d3.wordWrap
+- d3.???
+
+
+## Related work
+- [github.com/sarahgp/data-monster](https://github.com/sarahgp/data-monster)
+- [github.com/twitter/d3kit](https://github.com/twitter/d3kit)
+- [github.com/rollup/rollup](https://github.com/rollup/rollup)
+- [github.com/uwdata](https://github.com/uwdata)
+- ![come work with us!!!](http://www.bloomberg.com/graphics/2015-auto-sales/img/graphicslogo.png)
+
 
 ## Outline 
-- `append('el.class`): axis, circle, legend
+- `append('name.class`): axis, circle, legend
 - `translate`: x axis, legend
 - `ƒ`: scales, identity for text, compose attrs
 - `appendData`: circle, legend
 - `conventions`: margin, scale, axis
-
-
-## Links
-[jetpack](https://github.com/gka/d3-jetpack)
-
-[scatter plot](http://bl.ocks.org/mbostock/3887118)
-
-[data munster](https://github.com/sarahgp/data-monster)
-
-[d3kit](https://github.com/twitter/d3kit)
-
-[rollup](https://github.com/rollup/rollup)
-
-[come work with us!!!](http://jobs.bloomberg.com/job/New-York-Interactive-Graphic-Journalist-Job-NY/276897600/)
