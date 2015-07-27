@@ -4,6 +4,7 @@
 
 Intermediate level talk about using d3-jetpack and d3-starterkit to write more expressive, concise code. By encapsulating common d3 patterns we can avoid copying and pasting axis, scale, and transform code over and over again.
 
+
 ## Me
 https://roadtolarissa.com/
 
@@ -13,11 +14,13 @@ https://twitter.com/adamrpearce
 
 https://bloomberg.com/graphics
 
+
 ## Outline 
 - `ƒ`: scales, identity for text, compose attrs
 - `append('el.class`): axis, circle, legend
 - `appendData`: circle, legend
 - `conventions`: margin, scale, axis
+
 
 ## Links
 [jetpack](https://github.com/gka/d3-jetpack)
