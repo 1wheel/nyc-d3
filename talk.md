@@ -20,7 +20,7 @@
 ##Great, but...
 - 81 lines & 2284 characters of js
 
-- Reuse with copy/paste
+- Reuse conventions with copy/paste
 
 
 ##d3-jetpack
@@ -141,20 +141,144 @@ y.domain(d3.extent(data, function(d) { return d.sepalLength; }))
 After
 
 ````javascript
-  x.domain(d3.extent(data, ƒ('sepalWidth'))
-  y.domain(d3.extent(data, ƒ('sepalLength'))
+  x.domain(d3.extent(data, ƒ('sepalWidth')))
+  y.domain(d3.extent(data, ƒ('sepalLength')))
+````
+
+
+##Compose
+Combines two funtions together 
+
+````javascript
+function compose(g, h){
+  return function(object){
+    return h(g(object))
+  }
+}
+
+function add10 (n){ return 10 + n }
+function double(n){ return  2 * n }
+
+compose(ƒ('legs'), add10) (collie)  //4 + 10 = 14
+compose(ƒ('legs'), add10) (spider)  //8 + 10 = 18
+compose(ƒ('legs'), double)(spider)  //8 * 2  = 16
 ````
 
 
 ##ƒIELD ACCESSOR
-Turns a string into a function
+
+Before
 
 ````javascript
-function ƒ(str){
-  return function(object){
-    return object[str]
-  }
-}
+dots
+    .attr("cx", function(d) { return x(d.sepalWidth); })
+    .attr("cy", function(d) { return y(d.sepalLength); })
+    .style("fill", function(d) { return color(d.species); })
+````
+
+After
+
+````javascript
+dots
+    .attr("cx", compose(ƒ('sepalWidth'), x))
+    .attr("cx", compose(ƒ('sepalLength'), y))
+    .style("fill", compose(ƒ('species'), color))
+````
+
+
+##ƒIELD ACCESSOR
+Converts strings to functions and composes
+
+````
+ƒ('legs', add10) (collie)           //4 + 10 = 14
+ƒ('legs'), double)(spider)          //8 * 2  = 16
+ƒ(add10, double, add10)(3)          //((3 + 10) * 2 ) + 10 = 36
+ƒ()(3)                              //3
+````
+
+
+##ƒIELD ACCESSOR
+Before
+
+````javascript
+dots
+    .attr("cx", compose(ƒ('sepalWidth'), x))
+    .attr("cx", compose(ƒ('sepalLength'), y))
+    .style("fill", compose(ƒ('species'), color))
+````
+
+After
+
+````javascript
+dots
+    .attr("cx", ƒ('sepalWidth', x))
+    .attr("cx", ƒ('sepalLength', y))
+    .style("fill", ƒ('species', color))
+````
+
+
+##ƒIELD ACCESSOR
+Also works as an identity function
+
+Before
+
+````javascript
+legend.append("text")
+    .text(function(d) { return d })
+````
+
+After
+
+````javascript
+legend.append("text")
+    .text(ƒ())
+````
+
+
+##d3-starterkit
+Snippets and conventions for starting a new d3 project
+
+[github.com/1wheel/d3-starterkit](https://github.com/1wheel/d3-starterkit)
+
+
+##dataAppend
+Before
+
+````javascript
+svg.selectAll(".dot")
+    .data(data)
+  .enter().append("circle.dot")
+````
+
+After
+
+````javascript
+svg.dataAppend(data, "circle.dot")
+````
+
+
+##dataAppend
+````javascript
+d3.selection.prototype.dataAppend = function(data, name){
+  return this.selectAll(name)
+      .data(data).enter()
+    .append(name)
+````
+
+
+##dataAppend
+Before
+
+````javascript
+var legend = svg.selectAll(".legend")
+    .data(color.domain())
+  .enter().append("g")
+````
+
+After
+
+````javascript
+legend = svg.dataAppend(color.domain(), "g.legend")
 ````
 
 

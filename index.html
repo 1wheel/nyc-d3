@@ -120,7 +120,9 @@
 
 				d3.selectAll('h2').each(function(){
 					var sel = d3.select(this)
-					if (sel.text() == 'ƒIELD ACCESSOR') sel.style('text-transform', 'auto')
+
+					if (sel.text() == 'ƒIELD ACCESSOR') sel.style('text-transform', 'none')
+					if (sel.text() == 'dataAppend') sel.style('text-transform', 'none')
 				})   
 			});
 
