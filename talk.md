@@ -1,4 +1,4 @@
-# Reusing d3 code with jetpack & starterkit
+# Reusable d3 with jetpack & starterkit
 
 [1wheel.github.io/nyc-d3](http://1wheel.github.io/nyc-d3/#/)
 
@@ -272,7 +272,7 @@ Before
 ````javascript
 var legend = svg.selectAll(".legend")
     .data(color.domain())
-  .enter().append("g")
+  .enter().append("g.legend")
 ````
 
 After
@@ -380,7 +380,7 @@ c.svg.select('.x.axis')
 - 31 lines just to draw the axis label and legend
 
 
-#Minimally viable (scatter) plot 
+##Minimally viable (scatter) plot 
 [Scatter III](http://bl.ocks.org/1wheel/3dfee2b74943398f0550)
 
 ````
@@ -406,6 +406,14 @@ d3.tsv("data.tsv", function(data) {
 - d3.???
 
 
+##Tutorials
+![stacked-bump](img/recording.gif)
+
+[roadtolarissa.com/stacked-bump](http://roadtolarissa.com/stacked-bump/)
+
+[roadtolarissa.com/data-exploration](http://roadtolarissa.com/data-exploration/)
+
+
 ## Related work
 - [github.com/sarahgp/data-monster](https://github.com/sarahgp/data-monster)
 - [github.com/twitter/d3kit](https://github.com/twitter/d3kit)
@@ -413,10 +421,11 @@ d3.tsv("data.tsv", function(data) {
 - [github.com/uwdata](https://github.com/uwdata)
 - ![come work with us!!!](http://www.bloomberg.com/graphics/2015-auto-sales/img/graphicslogo.png)
 
-
+<!-- 
 ## Outline 
 - `append('name.class`): axis, circle, legend
 - `translate`: x axis, legend
 - `ƒ`: scales, identity for text, compose attrs
 - `appendData`: circle, legend
 - `conventions`: margin, scale, axis
+ -->
