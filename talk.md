@@ -1,18 +1,105 @@
-#NYC D3.JS - JULY 2015
+# Reusing d3 code with jetpack & starterkit
 
-## Reusing code with d3-jetpack and d3-starterkit
-
-Intermediate level talk about using d3-jetpack and d3-starterkit to write more expressive, concise code. By encapsulating common d3 patterns we can avoid copying and pasting axis, scale, and transform code over and over again.
+[1wheel.github.io/nyc-d3](http://1wheel.github.io/nyc-d3/#/)
 
 
-## Me
-https://roadtolarissa.com/
 
-https://github.com/1wheel
+## Adam Pearce
+- [roadtolarissa.com](http://roadtolarissa.com)
+- [bloomberg.com/graphics](https://bloomberg.com/graphics)
+- [github.com/1wheel](https://github.com/1wheel)
+- [@adamrpearce](https://twitter.com/adamrpearce)
 
-https://twitter.com/adamrpearce
 
-https://bloomberg.com/graphics
+## Scatter Plot I
+![scatter plot](img/thumbnail.png)
+
+[bl.ocks.org/1wheel](http://bl.ocks.org/1wheel/98129315d0f7df3b53e3)
+
+
+##Great, but...
+- 81 lines & 2284 characters of js
+
+- Reuse with copy/paste
+
+
+##d3-jetpack
+![jetpack comic](https://camo.githubusercontent.com/37eb19461d1dba8d6af9c2a816f488b9bf244691/687474703a2f2f33362e6d656469612e74756d626c722e636f6d2f74756d626c725f6d346b6b7864386e57423172776b7264626f315f3530302e6a7067)
+
+- [github.com/gka/d3-jetpack](https://github.com/gka/d3-jetpack)
+
+
+##appending with class
+Before
+
+````javascript
+var legend = svg.selectAll(".legend")
+    .data(color.domain())
+  .enter().append("g")
+    .attr("class", "legend")
+````
+
+After
+
+````javascript
+var legend = svg.selectAll(".legend")
+    .data(color.domain())
+  .enter().append("g.legend")
+````
+
+
+##appending with class
+Works with multiples classes and ids
+
+Before
+
+````javascript
+svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+  .append("text")
+    .attr("class", "label")
+````
+
+After
+
+````javascript
+svg.append("g.y.axis")
+    .call(yAxis)
+  .append("text.label")
+````
+
+
+##translate
+Before
+
+````javascript
+svg.append("g.x.axis")
+    .attr("transform", "translate(0," + height + ")")
+````
+
+After
+
+````javascript
+svg.append("g.x.axis")
+    .translate([0, height])
+````
+
+
+##translate
+Before
+
+````javascript
+svg.append("g.x.axis")
+    .attr("transform", "translate(0," + height + ")")
+````
+
+After
+
+````javascript
+svg.append("g.x.axis")
+    .translate([0, height])
+````
 
 
 ## Outline 

@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>nyc d3</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -28,6 +28,24 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+		<style>
+			li{
+				list-style: none;
+			}
+			.before{
+				color: rgb(31, 119, 180);
+				text-align: left;
+				padding-left: 1.2em !important;
+			}
+			.after{
+				color: rgb(255, 127, 14);
+				text-align: left;
+				padding-left: 1.2em !important;
+			}
+		</style>
 
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
@@ -76,6 +94,15 @@
 					{ src: 'plugin/notes/notes.js', async: true }
 				]
 			});
+
+			Reveal.addEventListener( 'ready', function( event ) {
+				d3.selectAll('p').each(function(){
+					var sel = d3.select(this)
+					if (sel.text() == 'Before') sel.classed('before', true)
+					if (sel.text() == 'After')  sel.classed('after',  true)
+				})   
+			});
+
 
 		</script>
 
