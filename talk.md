@@ -49,7 +49,7 @@ var legend = svg.selectAll(".legend")
 
 
 ##appending with class
-Works with multiples classes and ids
+Works with ids and multiple classes
 
 Before
 
@@ -87,24 +87,82 @@ svg.append("g.x.axis")
 
 
 ##translate
+Functions called w/ bound data and index
+
 Before
 
 ````javascript
-svg.append("g.x.axis")
-    .attr("transform", "translate(0," + height + ")")
+legend
+    .attr("transform", function(d, i){
+      return "translate(0," + i * 20 + ")" })
 ````
 
 After
 
 ````javascript
-svg.append("g.x.axis")
-    .translate([0, height])
+legend
+    .translate(function(d, i){ return [0, i*20] })
 ````
 
 
+##ƒIELD ACCESSOR
+Turns a string into a function
+
+````javascript
+function ƒ(str){
+  return function(object){
+    return object[str]
+  }
+}
+````
+
+Returns properties from objects
+
+````javascript
+var collie = {color: 'brown', legs: 4}
+var spider = {color: 'black', legs: 8}
+
+ƒ('color')(collie)      //'brown'
+ƒ('color')(spider)      //'black'
+
+ƒ('legs')(spider)       //8
+````
+
+
+##ƒIELD ACCESSOR
+
+Before
+
+````javascript
+x.domain(d3.extent(data, function(d) { return d.sepalWidth; }))
+y.domain(d3.extent(data, function(d) { return d.sepalLength; }))
+````
+
+After
+
+````javascript
+  x.domain(d3.extent(data, ƒ('sepalWidth'))
+  y.domain(d3.extent(data, ƒ('sepalLength'))
+````
+
+
+##ƒIELD ACCESSOR
+Turns a string into a function
+
+````javascript
+function ƒ(str){
+  return function(object){
+    return object[str]
+  }
+}
+````
+
+
+
 ## Outline 
-- `ƒ`: scales, identity for text, compose attrs
 - `append('el.class`): axis, circle, legend
+- `translate`: x axis, legend
+- `ƒ`: scales, identity for text, compose attrs
 - `appendData`: circle, legend
 - `conventions`: margin, scale, axis
 

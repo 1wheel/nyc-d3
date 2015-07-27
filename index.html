@@ -45,6 +45,22 @@
 				text-align: left;
 				padding-left: 1.2em !important;
 			}
+
+			.reveal .slides {
+			  text-align: center;
+			}
+
+			.navigate-up, .navigate-down{
+				display: none;
+			}
+			.navigate-left, .navigate-right{
+				top: 0px !important;
+			}
+
+			.controls{
+				height: 35px !important
+			}
+
 		</style>
 
 		<!--[if lt IE 9]>
@@ -100,6 +116,11 @@
 					var sel = d3.select(this)
 					if (sel.text() == 'Before') sel.classed('before', true)
 					if (sel.text() == 'After')  sel.classed('after',  true)
+				})
+
+				d3.selectAll('h2').each(function(){
+					var sel = d3.select(this)
+					if (sel.text() == 'ƒIELD ACCESSOR') sel.style('text-transform', 'auto')
 				})   
 			});
 
