@@ -374,24 +374,29 @@ c.svg.select('.x.axis')
 
 
 ##Significantly shorter
+[Scatter II](http://bl.ocks.org/1wheel/7e473c251e68ce760e2a)
 - Conventions can be used without copy/paste
 - 49 lines and 1309 characters of javascript
 - 31 lines just to draw the axis label and legend
 
 
 #Minimally viable (scatter) plot 
+[Scatter III](http://bl.ocks.org/1wheel/3dfee2b74943398f0550)
+
 ````
-var c = d3.conventions()
-c.x.domain(d3.extent(data, ƒ('sepalWidth')))
-c.y.domain(d3.extent(data, ƒ('sepalLength')))
+d3.tsv("data.tsv", function(data) {
+  var c = d3.conventions()
+  c.x.domain(d3.extent(data, ƒ('sepalWidth')))
+  c.y.domain(d3.extent(data, ƒ('sepalLength')))
 
-c.drawAxis()
+  c.drawAxis()
 
-c.svg.dataAppend(data, "circle.dot")
-    .attr("r", 3.5)
-    .attr("cx", ƒ('sepalWidth', c.x))
-    .attr("cy", ƒ('sepalLength', c.y))
-    .style("fill", ƒ('species', c.color))
+  c.svg.dataAppend(data, "circle.dot")
+      .attr("r", 3.5)
+      .attr("cx", ƒ('sepalWidth', c.x))
+      .attr("cy", ƒ('sepalLength', c.y))
+      .style("fill", ƒ('species', c.color))
+})
 ````
 
 
