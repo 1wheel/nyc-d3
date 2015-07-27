@@ -147,7 +147,7 @@ After
 
 
 ##Compose
-Combines two funtions together 
+Combines two functions together 
 
 ````javascript
 function compose(g, h){
@@ -181,7 +181,7 @@ After
 ````javascript
 dots
     .attr("cx", compose(ƒ('sepalWidth'), x))
-    .attr("cx", compose(ƒ('sepalLength'), y))
+    .attr("cy", compose(ƒ('sepalLength'), y))
     .style("fill", compose(ƒ('species'), color))
 ````
 
@@ -203,7 +203,7 @@ Before
 ````javascript
 dots
     .attr("cx", compose(ƒ('sepalWidth'), x))
-    .attr("cx", compose(ƒ('sepalLength'), y))
+    .attr("cy", compose(ƒ('sepalLength'), y))
     .style("fill", compose(ƒ('species'), color))
 ````
 
@@ -212,7 +212,7 @@ After
 ````javascript
 dots
     .attr("cx", ƒ('sepalWidth', x))
-    .attr("cx", ƒ('sepalLength', y))
+    .attr("cy", ƒ('sepalLength', y))
     .style("fill", ƒ('species', color))
 ````
 
